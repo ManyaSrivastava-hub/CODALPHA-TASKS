@@ -52,3 +52,11 @@ public class GradeCalculator {
         scanner.close();
     }
 }
+
+
+COMPANY NAME - CODEALPHA 
+NAME - MANYA SRIVASTAVA 
+INTERN ID - CA/MA1/6231
+DOMAIN - JAVA PROGRAMMING 
+DURATION - 15 TH MAY TO 15 TH JUNE 
+
