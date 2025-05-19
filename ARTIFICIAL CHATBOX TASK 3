@@ -1,0 +1,40 @@
+Artificial chatbox tasks-3
+
+import java.util.Scanner;
+
+public class SimpleChatbot {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Chatbot: Hello! How can I assist you today?");
+        
+        while (true) {
+            System.out.print("You: ");
+            String userInput = scanner.nextLine().toLowerCase().trim();
+
+            if (userInput.equals("exit") || userInput.equals("bye")) {
+                System.out.println("Chatbot: Goodbye! Have a great day!");
+                break;
+            }
+
+            String response = getResponse(userInput);
+            System.out.println("Chatbot: " + response);
+        }
+        scanner.close();
+    }
+
+    private static String getResponse(String input) {
+        if (input.contains("hello") || input.contains("hi")) {
+            return "Hi there! How can I help you?";
+        } else if (input.contains("how are you")) {
+            return "I'm just a bot, but I'm doing well. How about you?";
+        } else if (input.contains("your name")) {
+            return "I'm your friendly chatbot!";
+        } else if (input.contains("weather")) {
+            return "I don't have real-time data, but I hope the weather is nice!";
+        } else if (input.contains("help")) {
+            return "I'm here to assist you. What do you need help with?";
+        } else {
+            return "I'm sorry, I didn't understand that.";
+        }
+    }
+}
