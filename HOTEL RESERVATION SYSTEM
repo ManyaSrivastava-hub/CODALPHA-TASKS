@@ -1,0 +1,151 @@
+HOTEL RESERVATION SYSTEM Task 4 
+
+import java.util.*;
+
+public class HotelReservationSystem {
+    static class Room {
+        int number;
+        String type;
+        double price;
+        boolean isAvailable;
+
+        Room(int number, String type, double price) {
+            this.number = number;
+            this.type = type;
+            this.price = price;
+            this.isAvailable = true;
+        }
+
+        void book() {
+            isAvailable = false;
+        }
+
+        void cancel() {
+            isAvailable = true;
+        }
+    }
+
+    static class Reservation {
+        String guestName;
+        Room room;
+        Date checkIn;
+        Date checkOut;
+
+        Reservation(String guestName, Room room, Date checkIn, Date checkOut) {
+            this.guestName = guestName;
+            this.room = room;
+            this.checkIn = checkIn;
+            this.checkOut = checkOut;
+        }
+
+        double calculateTotal() {
+            long diffInMillies = checkOut.getTime() - checkIn.getTime();
+            long diff = diffInMillies / (1000 * 60 * 60 * 24);
+            return diff * room.price;
+        }
+    }
+
+    private static final List<Room> rooms = new ArrayList<>();
+    private static final List<Reservation> reservations = new ArrayList<>();
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        initializeRooms();
+
+        while (true) {
+            System.out.println("\nHotel Reservation System");
+            System.out.println("1. View Available Rooms");
+            System.out.println("2. Make Reservation");
+            System.out.println("3. View Reservations");
+            System.out.println("4. Exit");
+            System.out.print("Choose an option: ");
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // Consume newline
+
+            switch (choice) {
+                case 1:
+                    viewAvailableRooms();
+                    break;
+                case 2:
+                    makeReservation(scanner);
+                    break;
+                case 3:
+                    viewReservations();
+                    break;
+                case 4:
+                    System.out.println("Thank you for using the Hotel Reservation System.");
+                    return;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+        }
+    }
+
+    private static void initializeRooms() {
+        rooms.add(new Room(101, "Single", 100.0));
+        rooms.add(new Room(102, "Double", 150.0));
+        rooms.add(new Room(103, "Suite", 250.0));
+    }
+
+    private static void viewAvailableRooms() {
+        System.out.println("\nAvailable Rooms:");
+        for (Room room : rooms) {
+            if (room.isAvailable) {
+                System.out.println("Room " + room.number + " (" + room.type + ") - $" + room.price + " per night");
+            }
+        }
+    }
+
+    private static void makeReservation(Scanner scanner) {
+        System.out.print("Enter your name: ");
+        String guestName = scanner.nextLine();
+        System.out.print("Enter room number to book: ");
+        int roomNumber = scanner.nextInt();
+        scanner.nextLine(); // Consume newline
+
+        Room selectedRoom = null;
+        for (Room room : rooms) {
+            if (room.number == roomNumber && room.isAvailable) {
+                selectedRoom = room;
+                break;
+            }
+        }
+
+        if (selectedRoom == null) {
+            System.out.println("Room not available or invalid room number.");
+            return;
+        }
+
+        System.out.print("Enter check-in date (yyyy-mm-dd): ");
+        String checkInDate = scanner.nextLine();
+        System.out.print("Enter check-out date (yyyy-mm-dd): ");
+        String checkOutDate = scanner.nextLine();
+
+        // For simplicity, we're not parsing dates here. In a real application, use Date parsing.
+        Date checkIn = new Date();
+        Date checkOut = new Date();
+
+        Reservation reservation = new Reservation(guestName, selectedRoom, checkIn, checkOut);
+        reservations.add(reservation);
+        selectedRoom.book();
+
+        System.out.println("Reservation successful!");
+        System.out.println("Total amount: $" + reservation.calculateTotal());
+    }
+
+    private static void viewReservations() {
+        System.out.println("\nReservations:");
+        for (Reservation reservation : reservations) {
+            System.out.println("Guest: " + reservation.guestName + ", Room: " + reservation.room.number +
+                    ", Type: " + reservation.room.type + ", Check-in: " + reservation.checkIn +
+                    ", Check-out: " + reservation.checkOut + ", Total: $" + reservation.calculateTotal());
+        }
+    }
+}
+
+
+Company name - CODALPHA 
+Name- Manya Srivastava
+Student id - CA/MA1/6231
+DOMAIN NAME - JAVA PROGRAMMING 
+DURATION-15TH MAY TO 15 TH JUNE
