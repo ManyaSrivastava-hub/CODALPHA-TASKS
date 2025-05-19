@@ -1,5 +1,5 @@
 # CODALPHA-TASKS
-STUDENT GRADE TRACKER
+ TASK 1 - STUDENT GRADE TRACKER
 import java.util.Scanner;
 
 public class GradeCalculator {
